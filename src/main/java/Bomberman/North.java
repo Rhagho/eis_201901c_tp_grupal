@@ -8,7 +8,7 @@ public class North extends Direction {
 
     @Override
     public Coordinate giveNextCoordinate(Coordinate coordinate){
-        Coordinate newCoordinate = coordinate;
+        Coordinate newCoordinate = new Coordinate(coordinate.getX(),coordinate.getY());
         newCoordinate.incrementY();
         return newCoordinate;
     }

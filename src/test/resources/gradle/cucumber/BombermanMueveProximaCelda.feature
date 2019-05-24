@@ -1,27 +1,66 @@
-Feature: Bomberman se mueve a la celda contigua
+Feature: Bomberman Moviendose
 
-    Scenario: Bomberman se mueve a la celda Norte
-       Given Un Juego que contiene mapa con Bomberman en su celda inicial
-       When Bomberman se mueve hacia la celda vacia Norte
-       Then Bomberman cambia su posicion
+  Scenario: Bomberman se mueve a la celda Norte
+    Given Un Juego con bomberman en una celda
+    When Bomberman se mueve hacia la celda vacia Norte
+    Then Bomberman cambia su posicion
 
-#    Scenario: Bomberman se mueve hacia el norte
-#      Given Bomberman
-#      When Lo muevo de celda hacia el Norte
-#      Then bomberman esta en la proxima celda al Norte
+  Scenario: Bomberman no se puede mover habiendo una celda con una pared al Norte
+    Given Un Juego con bomberman en una celda
+    When Bomberman intenta moverse al Norte habiendo una pared
+    Then Bomberman se queda en el lugar
 
-#    Scenario: Bomberman se mueve hacia el Sur
-#      Given Bomberman
-#      When Lo muevo de celda hacia el Sur
-#      Then bomberman esta en la proxima celda al Sur
-
-#    Scenario: Bomberman se mueve hacia el Este
-#      Given Bomberman
-#      When Lo muevo de celda hacia el Este
-#      Then bomberman esta en la proxima celda al Este
+  Scenario: Bomberman muere al moverse a la celda Norte habiendo un enemigo
+    Given Un Juego con bomberman en una celda
+    When Bomberman intenta moverse al Norte habiendo un enemigo
+    Then Bomberman muere
 
 
-#    Scenario: Bomberman se mueve hacia el Oeste
-#     Given Bomberman
-#      When Lo muevo de celda hacia el Oeste
-#      Then bomberman esta en la proxima celda al Oeste
+
+  Scenario: Bomberman se mueve a la celda Sur
+    Given Un Juego con bomberman en una celda
+    When Bomberman se mueve hacia la celda vacia Sur
+    Then Bomberman cambia su posicion
+
+  Scenario: Bomberman no se puede mover habiendo una celda con una pared al Sur
+    Given Un Juego con bomberman en una celda
+    When Bomberman intenta moverse al Sur habiendo una pared
+    Then Bomberman se queda en el lugar
+
+  Scenario: Bomberman muere al moverse a la celda Sur habiendo un enemigo
+    Given Un Juego con bomberman en una celda
+    When Bomberman intenta moverse al Sur habiendo un enemigo
+    Then Bomberman muere
+
+
+
+    Scenario: Bomberman se mueve a la celda Este
+    Given Un Juego con bomberman en una celda
+    When Bomberman se mueve hacia la celda vacia Este
+    Then Bomberman cambia su posicion
+
+  Scenario: Bomberman no se puede mover habiendo una celda con una pared al Este
+    Given Un Juego con bomberman en una celda
+    When Bomberman intenta moverse al Este habiendo una pared
+    Then Bomberman se queda en el lugar
+
+  Scenario: Bomberman muere al moverse a la celda Este habiendo un enemigo
+    Given Un Juego con bomberman en una celda
+    When Bomberman intenta moverse al Este habiendo un enemigo
+    Then Bomberman muere
+
+
+  Scenario: Bomberman se mueve a la celda Oeste
+    Given Un Juego con bomberman en una celda
+    When Bomberman se mueve hacia la celda vacia Oeste
+    Then Bomberman cambia su posicion
+
+  Scenario: Bomberman no se puede mover habiendo una celda con una pared al Oeste
+    Given Un Juego con bomberman en una celda
+    When Bomberman intenta moverse al Oeste habiendo una pared
+    Then Bomberman se queda en el lugar
+
+  Scenario: Bomberman muere al moverse a la celda Oeste habiendo un enemigo
+    Given Un Juego con bomberman en una celda
+    When Bomberman intenta moverse al Oeste habiendo un enemigo
+    Then Bomberman muere

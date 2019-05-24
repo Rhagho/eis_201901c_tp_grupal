@@ -41,10 +41,10 @@ public class Coordinate {
         this.x--;
     }
 
-    public Integer getX(){
+    public int getX(){
         return x;
     }
-    public Integer getY(){
+    public int getY(){
         return y;
     }
 }
