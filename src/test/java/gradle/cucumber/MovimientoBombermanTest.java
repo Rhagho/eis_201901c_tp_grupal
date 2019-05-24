@@ -63,7 +63,7 @@ public class MovimientoBombermanTest extends TestCase {
 
         Direction direction = new West();
 
-        this.juego.moverBomberman(new East());
+
         Coordinate posicionBomberman = this.juego.getPosicionBomberman();
         Coordinate coordendaAlOeste = direction.giveNextCoordinate(posicionBomberman);
 
