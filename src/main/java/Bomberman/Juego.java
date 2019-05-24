@@ -14,7 +14,7 @@ public class Juego {
         this.bombas = new ArrayList<Bomba>();
         this.bomberman = new Bomberman();
         this.mapa = new Mapa();
-        this.posicionBomberman = new Coordinate(2,2);
+        this.posicionBomberman = new Coordinate(1,1);
     }
 
     public Mapa getMapa() {
