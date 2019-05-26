@@ -188,22 +188,6 @@ public class BombermanStepdefs {
        assertTrue(this.juego.noHayBombasActivas());
 
     }
-    @And("^una pared de metal al sur del bomberman")
-    public void ponerParedDeMetalAlSurDelBomberman()throws Throwable{
-        Coordinate alSurDelBomberman = new South().giveNextCoordinate(juego.getPosicionBomberman());
-        this.mapa.colocarItem(new ParedAcero(), alSurDelBomberman);
-    }
-    @And("^Proto Max Jr al norte del bomberman")
-    public void colocarProtoMaxAlNorteDelBomberman()throws Throwable{
-        Coordinate alNorteDelBomberman = new North().giveNextCoordinate(juego.getPosicionBomberman());
-        this.mapa.colocarItem(protoMaxJr, alNorteDelBomberman);
-    }
-    @And("^Proto Max Jr muere")
-    public void assertProtomaxMurio() throws Throwable{
-        Coordinate alNorteDelBomberman = new North().giveNextCoordinate(juego.getPosicionBomberman());
-        assertFalse(mapa.getCelda(alNorteDelBomberman).hayEnemigo());
-    }
-
     private void bombermanTieneEnemigoAlLadoEnDireccion(Direction dir,Enemigo enemigo) throws Exception{
         Coordinate coordDelEnemigo = dir.giveNextCoordinate(this.juego.getPosicionBomberman());
         this.mapa.colocarItem(enemigo,coordDelEnemigo);
@@ -225,6 +209,14 @@ public class BombermanStepdefs {
     public void assertBombaSePoneEnLaCeldaQueEstaBomberman(){
         assertFalse(this.juego.noHayBombasActivas());
         assertTrue(this.juego.hayBombaEnCoordenada(this.juego.getPosicionBomberman()));
+    }
+
+    @When("^Bomberman se mueve al (Oeste|Este|Sur|Norte) habiendo \"([^\"]*)\" en la celda$")
+    public void ponerItemEnCeldaAlLadoDeBobermanYBombermanSeMueveAhi(String dirStr, String tipoPared) throws Exception{
+        Pared pared = this.castTipoPared(tipoPared);
+        Direction dir = this.castDirection(dirStr);
+
+        this.colocarUnItemYMoverloAUnaDireccion(dir,pared);
     }
 
     private boolean checkearSiLasCeldasAlRededorDeAlgoEstanVacias() {
@@ -329,15 +321,14 @@ public class BombermanStepdefs {
         }
     }
 
-    @And("^una pared de metal al Norte del bomberman$")
-    public void unaParedDeMetalAlNorteDelBomberman() throws Throwable{
-        Coordinate alNorteDelBomberman = new North().giveNextCoordinate(juego.getPosicionBomberman());
-        this.mapa.colocarItem(new ParedAcero(), alNorteDelBomberman);
-    }
-
-    @And("^Proto Max Jr al Sur del bomberman$")
-    public void protoMaxJrAlSurDelBomberman() throws Throwable{
-        Coordinate alSurDelBomberman = new South().giveNextCoordinate(juego.getPosicionBomberman());
-        this.mapa.colocarItem(protoMaxJr, alSurDelBomberman);
+    private Pared castTipoPared(String paredStr){
+        switch(paredStr) {
+            case "paredNormal":
+                return new Pared();
+            case "paredAcero":
+                return new ParedAcero();
+            default:
+                throw new IllegalStateException("Unexpected value: " + paredStr);
+        }
     }
 }
