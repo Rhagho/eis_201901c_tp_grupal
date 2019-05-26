@@ -61,23 +61,9 @@ Feature: Bomberman Suelta Bombas
         Then La bomba se pone "1" celdas al Oeste de la posicion de Bomberman
 
 #Prueba de aceptacion 4:
-
-#ESTA MAL PORQUE BOMBERMAN NO AGARRA EL PODER DE LA CELDA DONDE MUERE EL ENEMIGO Y HABRIA QUE SUBDIVIDIRLO EN VARIOS SCENARIOS
-#----------------------------------------------------------
-     #Bomberman.Bomberman suelta bomba y esta alcanza a 'Proto Max Jr.' al morir, este suelta un poder que le permite a bomberman saltar toddo tipo de pared.
-      #Scenario: Bomberman lanza bomba y esta alcanza a proto max JR, al morir, bomberman puede saltar paredes
-       #  Given Un Juego con bomberman en una celda
-        # And una pared de metal al sur del bomberman
-         #And Proto Max Jr al norte del bomberman
-         #When Bomberman lanza bomba mirando al Norte
-         #And Pasa "4" ticks
-         #Then Proto Max Jr muere
-         #And Bomberman con poder "saltarPared"
-#----------------------------------------------------------
+#Bomberman.Bomberman suelta bomba y esta alcanza a 'Proto Max Jr.' al morir, este suelta un poder que le permite a bomberman saltar toddo tipo de pared.
 
 
-
-#FALTARIA TESTIAR LOS EFECTOS DE BOMBERMAN CON ESTE PODER
      Scenario: Bomberman pone una bomba y mata a "ProtoMaxJr" que entra en su onda expansiva
          Given Un Juego con bomberman en una celda
          And Esta "ProtoMaxJr" en la celda de al lado de bomberman Sur
@@ -91,23 +77,21 @@ Feature: Bomberman Suelta Bombas
         When Bomberman se mueve sobre esa celda Sur
         Then Bomberman obtiene el poder "saltarPared"
 
+     Scenario: Bomberman con poder "saltarPared" salta la Pared Norte
+        Given Un Juego con bomberman en una celda
+        And Bomberman con poder "saltarPared"
+        When Bomberman se mueve al Norte habiendo "paredNormal" en la celda
+        Then Bomberman cambia su posicion
+
+     Scenario: Bomberman con poder "saltarPared" salta la Pared Este
+        Given Un Juego con bomberman en una celda
+        And Bomberman con poder "saltarPared"
+        When Bomberman se mueve al Este habiendo "paredAcero" en la celda
+        Then Bomberman cambia su posicion
+
 
 #Prueba de aceptacion 5:
    #Bomberman.Bomberman suelta bomba y esta alcanza a 'Proto-Max Units' al morir, este suelta un poder que le permite a bomberman saltar o lanzar varias bombas al mismo tiempo.
-
-
-#ESTA MAL PORQUE BOMBERMAN NO AGARRA EL PODER DE LA CELDA DONDE MUERE EL ENEMIGO Y HABRIA QUE SUBDIVIDIRLO EN VARIOS SCENARIOS
-#----------------------------------------------------------
-   #Scenario: Bomberman lanza bomba y esta alcanza a proto max JR, al morir, bomberman puede saltar paredes o lanzar varias bombas al mismo tiempo
-      #Given Un Juego con bomberman en una celda
-      #And una pared de metal al Norte del bomberman
-      #And Proto Max Jr al Sur del bomberman
-      #When Bomberman lanza bomba mirando al Sur
-      #And Pasa "4" ticks
-      #Then Proto Max Units muere
-      #And Bomberman con poder "saltarYLanzar"
-#----------------------------------------------------------
-
 
      Scenario: Bomberman pone una bomba y mata a "ProtoMaxUnits" que entra en su onda expansiva
          Given Un Juego con bomberman en una celda
@@ -122,7 +106,44 @@ Feature: Bomberman Suelta Bombas
         When Bomberman se mueve sobre esa celda Oeste
         Then Bomberman obtiene el poder "saltarYLanzar"
 
-#FALTARIA TESTIAR LOS EFECTOS DE BOMBERMAN CON ESTE PODER
+     Scenario: Bomberman con poder "saltarYLanzar" salta la Pared Norte
+        Given Un Juego con bomberman en una celda
+        And Bomberman con poder "saltarYLanzar"
+        When Bomberman se mueve al Norte habiendo "paredNormal" en la celda
+        Then Bomberman cambia su posicion
+
+     Scenario: Bomberman con poder "saltarYLanzar" salta la Pared Este
+        Given Un Juego con bomberman en una celda
+        And Bomberman con poder "saltarYLanzar"
+        When Bomberman se mueve al Este habiendo "paredAcero" en la celda
+        Then Bomberman cambia su posicion
+
+     Scenario: Bomberman con poder "saltarYLanzar" lanza bomba a 4 celdas de longitud al Norte
+        Given Un Juego con bomberman en una celda
+        And Bomberman con poder "saltarYLanzar"
+        When Bomberman lanza bomba mirando al Norte
+        Then La bomba se pone "4" celdas al Norte de la posicion de Bomberman
+
+     Scenario: Bomberman lanza bomba a 4 celda de longitud y al pasar 4 ticks explota
+        Given Un Juego con bomberman en una celda
+        And Bomberman con poder "saltarYLanzar"
+        When Bomberman lanza bomba mirando al Norte
+        And Pasa "4" ticks
+        Then La bomba explota
+
+     Scenario: Bomberman lanza bomba a 4 celdas al Oeste y esta se queda en la posicion de bomberman al no existir celdas al Oeste
+        Given Un Juego con bomberman en una celda
+        And Bomberman se mueve hacia el Oeste
+        And Bomberman con poder "saltarYLanzar"
+        When Bomberman lanza bomba mirando al Oeste
+        Then La bomba se pone en la celda que esta bomberman
+
+     Scenario: Bomberman con poder "saltarYLanzar" lanza bomba a 4 celdas de longitud al Oeste y esta alcanza la celda proxima mas lejana al Oeste
+        Given Un Juego con bomberman en una celda
+        And Bomberman con poder "saltarYLanzar"
+        When Bomberman lanza bomba mirando al Oeste
+        Then La bomba se pone "1" celdas al Oeste de la posicion de Bomberman
+
 
 
 #Prueba de aceptacion 6:
