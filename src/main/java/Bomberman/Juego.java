@@ -96,5 +96,4 @@ public class Juego {
     public void setItemEnCeldaBomberman(Item item) throws Exception{
         this.getCeldaBomberman().setItem(new Vacio());
     }
-
 }
