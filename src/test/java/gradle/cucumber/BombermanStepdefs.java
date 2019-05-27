@@ -254,6 +254,25 @@ public class BombermanStepdefs {
         assertTrue(this.juego.hayBombaEnCoordenada(juego.getPosicionBomberman()));
     }
 
+    @Then("^La bomba del (Este|Sur|Oeste|Norte) explota y una esta en 4 celdas al (Oeste|Este|Sur|Norte) de la posicion de bomberman$")
+    public void assertUnaBombaExplotaYOtraEstaEn4CeldasAlEsteDeLaPosicionDeBomberman(String dir1Str,String dir2Str){
+        Direction dir1 = this.castDirection(dir1Str);
+        Direction dir2 = this.castDirection(dir2Str);
+
+        Coordinate coordDondeEstaLaBomba1 = juego.getPosicionBomberman().obtenerCoordenadas(dir1,4);
+
+        Coordinate coordDondeEstaLaBomba2 = juego.getPosicionBomberman().obtenerCoordenadas(dir2,4);
+
+        assertFalse(this.juego.hayBombaEnCoordenada(coordDondeEstaLaBomba1));
+        assertTrue(this.juego.hayBombaEnCoordenada(coordDondeEstaLaBomba2));
+    }
+
+    @Then("^En la posicion anterior de bomberman la bomba exploto y la otra bomba sigue en la posicion actual$")
+    public void assertUnaBombaExplotoYOtraEstaEnLaPosicionActualDeBomberman(){
+        assertFalse(this.juego.hayBombaEnCoordenada(this.oldCoordinate));
+        assertTrue(this.juego.hayBombaEnCoordenada(juego.getPosicionBomberman()));
+    }
+
     private void colocarUnItemYMoverloAUnaDireccion(Direction direccion, Item item) throws Exception{
         Coordinate posicionActual = this.juego.getPosicionBomberman();
         this.oldCoordinate = posicionActual;
