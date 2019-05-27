@@ -162,3 +162,18 @@ Feature: Bomberman Suelta Bombas
 #TESTIAR BOMBERMAN CUANDO BOMBERMAN SUELTA N BOMBAS Y CHEQUEAR QUE ESTEN EN LA LISTA DE BOMBAS
 
 #TESTIAR BOMBERMAN CUANDO BOMBERMAN LANZA N BOMBAS Y CHEQUEAR QUE ESTEN EN LA LISTA DE BOMBAS
+
+#HAY UN ERROR CON EL THEN TOMANDO 4 PARAMETROS ENTONCES HARDCODIE EL 4
+     Scenario: Bomberman con poder "lanzarBombas" lanza 2 bombas donde una a 4 celdas de longitud al Norte y otra a 4 celdas de longitud al Este
+        Given Un Juego con bomberman en una celda
+        And Bomberman con poder "lanzarBombas"
+        When Bomberman lanza bomba mirando al Norte
+        And Luego bomberman lanza bomba mirando al Este
+        Then Hay dos bombas una en 4 celdas al Norte y otra 4 celdas al Este de la posicion de bomberman
+
+     Scenario: Bomberman sin poderes deja una bomba en el lugar y otra al Norte
+        Given Un Juego con bomberman en una celda
+        When Bomberman deja una bomba
+        And Bomberman se mueve hacia el Norte
+        And Bomberman deja bomba
+        Then Hay una bomba en la posicion anterior de bomberman y otra bomba en la posicion actual

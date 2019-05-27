@@ -126,7 +126,7 @@ public class BombermanStepdefs {
     }
     @When("^Bomberman deja una bomba$")
     public void bombermanPoneUnaBombaConUnTipoDeEnemigoAlLado(){
-        this.juego.bombermanDejaUnaBomba();
+        this.juego.bombermanAccionarBomba();
     }
     @Then("^La Bomba explota donde estaba \"([^\"]*)\" soltando poder \"([^\"]*)\" en la celda (Este|Oeste|Sur|Norte)$")
     public void seMuereEnemigoYDejaCeldaConPoder(String enemigoStr,String poderStr,String dirStr) throws Throwable{
@@ -168,6 +168,13 @@ public class BombermanStepdefs {
 
     @When("^Bomberman lanza bomba mirando al (Este|Oeste|Sur|Norte)$")
     public void bombermanLanzaBombaMirandoA(String dirStr) throws Throwable{
+        Direction dir = this.castDirection(dirStr);
+        this.juego.setDondeMiraBomberman(dir);
+        this.juego.bombermanAccionarBomba();
+    }
+
+    @And("^Luego bomberman lanza bomba mirando al (Oeste|Este|Norte|Sur)$")
+    public void yBombermanLanzaBombaMirandoA(String dirStr) throws Throwable{
         Direction dir = this.castDirection(dirStr);
         this.juego.setDondeMiraBomberman(dir);
         this.juego.bombermanAccionarBomba();
@@ -219,9 +226,34 @@ public class BombermanStepdefs {
         this.colocarUnItemYMoverloAUnaDireccion(dir,pared);
     }
 
+    @Then("^Hay dos bombas una en 4 celdas al (Oeste|Sur|Este|Norte) y otra 4 celdas al (Oeste|Sur|Este|Norte) de la posicion de bomberman$")
+    public void assertHayUnaBombaEnNCeldaDireccionYOtraBombaEnNCeldaDireccion(String dir1Str,String dir2Str){
+        Direction dir1 = this.castDirection(dir1Str);
+        Direction dir2 = this.castDirection(dir2Str);
+
+        Coordinate coordDondeEstaLaBomba1 = juego.getPosicionBomberman().obtenerCoordenadas(dir1,4);
+
+        Coordinate coordDondeEstaLaBomba2 = juego.getPosicionBomberman().obtenerCoordenadas(dir2,4);
+
+        assertTrue(this.juego.hayBombaEnCoordenada(coordDondeEstaLaBomba1));
+        assertTrue(this.juego.hayBombaEnCoordenada(coordDondeEstaLaBomba2));
+    }
+
+    @And("^Bomberman deja bomba$")
+    public void bombermanDejaBomba(){
+        this.juego.bombermanAccionarBomba();
+    }
+
     private boolean checkearSiLasCeldasAlRededorDeAlgoEstanVacias() {
         return this.celdasAlRededorDeAlgo.stream().allMatch( c -> c.estaVacio());
     }
+
+    @Then("^Hay una bomba en la posicion anterior de bomberman y otra bomba en la posicion actual$")
+    public void assertHayBombaEnLaPosicionAnteriorBombermanYOtraEnLaPosicionActual(){
+        assertTrue(this.juego.hayBombaEnCoordenada(this.oldCoordinate));
+        assertTrue(this.juego.hayBombaEnCoordenada(juego.getPosicionBomberman()));
+    }
+
     private void colocarUnItemYMoverloAUnaDireccion(Direction direccion, Item item) throws Exception{
         Coordinate posicionActual = this.juego.getPosicionBomberman();
         this.oldCoordinate = posicionActual;
