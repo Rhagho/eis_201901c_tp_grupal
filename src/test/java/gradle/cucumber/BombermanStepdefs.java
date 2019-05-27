@@ -1,10 +1,23 @@
 package gradle.cucumber;
 
+import bombermanGame.contenidoMapa.*;
+import bombermanGame.contenidoMapa.direccion.*;
+import bombermanGame.contenidoMapa.enemigo.Bagulaa;
+import bombermanGame.contenidoMapa.enemigo.Enemigo;
+import bombermanGame.contenidoMapa.enemigo.ProtoMaxJr;
+import bombermanGame.contenidoMapa.enemigo.ProtoMaxUnits;
+import bombermanGame.contenidoMapa.escenario.Celda;
+import bombermanGame.contenidoMapa.escenario.Pared;
+import bombermanGame.contenidoMapa.escenario.ParedAcero;
+import bombermanGame.contenidoMapa.poder.Poder;
+import bombermanGame.contenidoMapa.poder.PoderLanzarBombas;
+import bombermanGame.contenidoMapa.poder.PoderSaltarPared;
+import bombermanGame.contenidoMapa.poder.PoderSaltarYLanzar;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import Bomberman.*;
+import bombermanGame.*;
 
 import java.util.List;
 
