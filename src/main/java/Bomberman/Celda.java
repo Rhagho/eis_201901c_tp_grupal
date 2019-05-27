@@ -6,7 +6,6 @@ public class Celda {
 
     private Item item;
     private Coordinate coordenada;
-    private Poder poder;
 
     public Celda(Coordinate coordenada){
         this.item = new Vacio();
@@ -62,8 +61,6 @@ public class Celda {
     public boolean hayPoderSaltarPared(){return this.item.hayPoderSaltarPared();}
 
     public boolean hayPoderSaltarYLanzar(){return this.item.hayPoderSaltarYLanzar();}
-
-    public boolean hayPoderSoltarVariasBombas(){return this.item.hayPoderSoltarVariasBombas();}
 
     public boolean hayEnemigo(){return this.item.hayEnemigo();}
 
