@@ -85,6 +85,10 @@ public class Juego {
 
     }
 
+    public Direction getDondeMiraBomberman(){
+        return this.dondeMiraBomberman;
+    }
+
     public boolean hayBombaEnCoordenada(Coordinate c){
         return this.bombas.stream().anyMatch(b -> b.getCoordenada().equals(c));
     }
@@ -95,5 +99,8 @@ public class Juego {
 
     public void setItemEnCeldaBomberman(Item item) throws Exception{
         this.getCeldaBomberman().setItem(new Vacio());
+    }
+    public void matarBomberman(){
+        this.bomberman.morir();
     }
 }

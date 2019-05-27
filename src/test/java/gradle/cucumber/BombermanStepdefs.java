@@ -273,6 +273,40 @@ public class BombermanStepdefs {
         assertTrue(this.juego.hayBombaEnCoordenada(juego.getPosicionBomberman()));
     }
 
+    @And("^Bomberman esta muerto$")
+    public void bombermanMuere(){
+        this.juego.matarBomberman();
+    }
+
+    @When("^Bomberman se muere$")
+    public void bombermanSeMuere(){
+        this.bombermanMuere();
+    }
+
+    @Then("^Bomberman no tiene ningun estadoDePoder")
+    public void bombermanNoTieneNingunEstadoDePoder(){
+        assertFalse(bomberman.noTieneNingunPoder());
+        assertFalse(bomberman.tienePoderSaltarYLanzarBombas());
+        assertFalse(bomberman.tienePoderSaltarPared());
+        assertFalse(bomberman.tienePoderLanzarBombas());
+    }
+
+    @Then("^No hay ninguna bomba activa$")
+    public void noHayNingunaBombaActiva(){
+        assertTrue(juego.noHayBombasActivas());
+    }
+
+    @And("^Bomberman mira al (Norte|Sur|Este|Oeste)$")
+    public void bombermanCambiarDondeMira(String dirStr){
+        Direction dir = this.castDirection(dirStr);
+        juego.setDondeMiraBomberman(dir);
+    }
+
+    @Then("^La direccion donde mira bomberman es null$")
+    public void assertNullDondeMiraBomberman(){
+        assertNull(juego.getDondeMiraBomberman());
+    }
+
     private void colocarUnItemYMoverloAUnaDireccion(Direction direccion, Item item) throws Exception{
         Coordinate posicionActual = this.juego.getPosicionBomberman();
         this.oldCoordinate = posicionActual;

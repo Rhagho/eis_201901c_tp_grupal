@@ -2,56 +2,55 @@ package Bomberman;
 
 public class Bomberman {
 
-    //REFACTOR SI SE LLEGA A UN ESTADOVIVO()
-    private Boolean estaVivo;
+    private EstadoSalud estadoSalud;
     private EstadoPoder miPoder ;
 
     public Bomberman () {
         this.miPoder = new EstadoPoderNoPuedeNada();
-        this.estaVivo = true;
+        this.estadoSalud = new Vivo();
+
     }
 
     public boolean siEstaMuerto() {
-        return !this.estaVivo;
+        return this.estadoSalud.siEstaMuerto();
     }
 
     public void morir() {
-        this.estaVivo = false;
+        this.estadoSalud.morir(this);
     }
 
     public void accionBomba(Juego juego) {
-        if(this.estaVivo){
-            this.miPoder.accionBomba(juego);
-        }
+
+        this.estadoSalud.accionBomba(juego,miPoder);
+
     }
     public void obtenerPoder(EstadoPoder estadoPoder){
-        if(this.estaVivo) {
-            this.miPoder = estadoPoder;
-        }
+        this.estadoSalud.obtenerPoder(this, estadoPoder);
     }
 
-    public boolean noTieneNingunPoder(){return this.miPoder.noTieneNingunPoder();}
+    public boolean noTieneNingunPoder(){
+        return this.estadoSalud.noTieneNingunPoder(this.miPoder);
+    }
 
-    public boolean tienePoderLanzarBombas(){return miPoder.tienePoderLanzarBombas();}
+    public boolean tienePoderLanzarBombas(){return this.estadoSalud.tienePoderLanzarBombas(miPoder);}
 
-    public boolean tienePoderSaltarPared(){return miPoder.tienePoderSaltarPared();}
+    public boolean tienePoderSaltarPared(){return this.estadoSalud.tienePoderSaltarPared(miPoder);}
 
-    public boolean tienePoderSaltarYLanzarBombas(){return miPoder.tienePoderSaltarYLanzarBombas();}
+    public boolean tienePoderSaltarYLanzarBombas(){return estadoSalud.tienePoderSaltarYLanzarBombas(miPoder);}
 
 
     public void moverse(Item item, Juego juego, Coordinate hacia) throws Exception{
-        if(estaVivo){
-            miPoder.moverme(item,juego,hacia);
-        }
+            estadoSalud.moverse(miPoder,item,juego,hacia);
     }
 
     public Direction cambiarDondeMira(Direction dir){
-        //TODO REFACTOR DE NULL A EXCEPTION ESTAMUERTOBOMBERMAN()
-        if(estaVivo){
-            return dir;
-        }
-
-        return null;
+       return estadoSalud.cambiarDondeMira(dir);
     }
 
+    public void setEstadoSalud(EstadoSalud estadoNuevo){
+        this.estadoSalud = estadoNuevo;
+    }
+    public void setEstadoPoder(EstadoPoder estadoPoderNuevo){
+        this.miPoder = estadoPoderNuevo;
+    }
 }
