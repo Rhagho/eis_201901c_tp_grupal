@@ -1,4 +1,7 @@
-import Bomberman.*;
+import bombermanGame.*;
+import bombermanGame.contenidoMapa.Mapa;
+import bombermanGame.contenidoMapa.direccion.*;
+import bombermanGame.contenidoMapa.enemigo.Enemigo;
 import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Before;

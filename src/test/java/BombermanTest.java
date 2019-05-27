@@ -1,5 +1,9 @@
-import Bomberman.*;
-import cucumber.api.java.mk_latn.No;
+import bombermanGame.*;
+import bombermanGame.contenidoMapa.direccion.*;
+import bombermanGame.contenidoMapa.enemigo.Enemigo;
+import bombermanGame.contenidoMapa.escenario.ParedAcero;
+import bombermanGame.contenidoMapa.enemigo.ProtoMaxJr;
+import bombermanGame.contenidoMapa.enemigo.ProtoMaxUnits;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -98,12 +102,12 @@ public class BombermanTest extends TestCase {
         Coordinate coordenadaAlNorteDeBomberman = new North().giveNextCoordinate(posicionBomberman);
         Coordinate coordenadaAlSurDebomberman = new South().giveNextCoordinate(posicionBomberman);
 
-        //Obtiene el mapa y le pone a ProtoMaxUnits al norte de la celda actual de bomberman, luego coloca una bomba en la ubicacion actual de BomberMan
+        //Obtiene el mapa y le pone a ProtoMaxUnits al norte de la celda actual de bombermanGame, luego coloca una bomba en la ubicacion actual de BomberMan
         juego.getMapa().colocarItem(protoMaxUnits,coordenadaAlNorteDeBomberman);
         juego.bombermanDejaUnaBomba();
         //Explota la bomba al correr los 4 ticks
         juego.correnNTicks(4);
-        //Coloca un enemigo al Sur de bomberman, y lanza una bomba que anteriormente obtuvo el poder al matar a ProtoMaxUnits
+        //Coloca un enemigo al Sur de bombermanGame, y lanza una bomba que anteriormente obtuvo el poder al matar a ProtoMaxUnits
         juego.getMapa().colocarItem(enemigo,coordenadaAlSurDebomberman);
         juego.setDondeMiraBomberman(new South());
         juego.bombermanLanzaUnaBomba(1,3);
